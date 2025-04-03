@@ -153,7 +153,7 @@ app.delete('/participantes', autenticarToken, async (req, res) => {
         res.status(500).json({ erro: 'Erro ao resetar participantes.' });
     }
 });
-
+// console.log('API base URL:', import.meta.env.VITE_API_URL);
 
 app.listen(3001, () => {
     console.log('Servidor rodando na porta 3001');
