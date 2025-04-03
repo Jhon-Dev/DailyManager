@@ -8,8 +8,8 @@
 
 ## 🔗 Demo
 
-🌐 _**Frontend:** [https://seu-projeto.vercel.app](https://seu-projeto.vercel.app)  
-🔌 **Backend:** [https://seu-api.onrender.com](https://seu-api.onrender.com)_
+🌐 _**Frontend:** [adicionar o link](https://projeto.app)  
+🔌 **Backend:** [adicionar o link](https://api.com)_
 
 ---
 
