@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { getAvatar } from '../utils/getAvatar';
 
 export default function ResultModal({ show, onClose, lista = [], onResortear }) {
     if (!show) return null;
@@ -20,11 +21,17 @@ export default function ResultModal({ show, onClose, lista = [], onResortear }) 
                                 className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-xl border"
                             >
                                 <span className="font-bold text-[#906eff]">{i + 1}.</span>
+
+                                <img
+                                    src={getAvatar(p.email)}
+                                    alt={p.nome}
+                                    className="w-8 h-8 rounded-full border"
+                                />
+
                                 <span className="text-gray-800">{p.nome}</span>
                             </motion.div>
                         ))}
                     </AnimatePresence>
-
                 </div>
 
                 <div className="mt-6 flex flex-col gap-2">

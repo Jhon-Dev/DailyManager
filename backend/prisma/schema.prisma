@@ -8,15 +8,16 @@ datasource db {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
-  email        String        @unique
-  senhaHash    String
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
+  senhaHash  String
   participantes Participant[]
 }
 
 model Participant {
   id     Int    @id @default(autoincrement())
   nome   String
+  email  String
   user   User   @relation(fields: [userId], references: [id])
   userId Int
 }

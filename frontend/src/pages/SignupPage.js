@@ -22,10 +22,11 @@ export default function SignupPage() {
 
         try {
             await api.post('/signup', { email, senha });
-            toast.success('Conta criada com sucesso! Faça login.');
+            toast.success('Conta criada com sucesso!');
             navigate('/login');
-        } catch (err) {
-            toast.error('Erro ao cadastrar');
+        } catch (error) {
+            const msg = error.response?.data?.erro || 'Erro ao criar conta';
+            toast.error(msg); // Aqui exibe a mensagem que veio do backend
         }
     };
 

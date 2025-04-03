@@ -4,10 +4,12 @@ import { LogOut, Trash2, Plus, Shuffle } from 'lucide-react';
 import { toast } from 'react-toastify';
 import ConfirmModal from '../components/ConfirmModal';
 import ResultModal from '../components/ResultModal';
+import { getAvatar } from '../utils/getAvatar';
 
 export default function DashboardPage() {
 
   const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
   const [participantes, setParticipantes] = useState([]);
   const [sorteados, setSorteados] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,18 +17,19 @@ export default function DashboardPage() {
   const abrirModalReset = () => setShowModal(true);
   const [confirmDelete, setConfirmDelete] = useState(null); // armazena o participante a ser removido
   const [showResult, setShowResult] = useState(false);
-  const [resultadoFinal, setResultadoFinal] = useState([]);
 
   const listar = async () => {
     setLoading(true);
     const { data } = await api.get('/participantes');
+    console.log('Participantes retornados:', data);
     setParticipantes(data);
     setLoading(false);
   };
 
+
   const adicionar = async () => {
     if (!nome) return;
-    await api.post('/participantes', { nome });
+    await api.post('/participantes', { nome, email });
     toast.success('Participante adicionado!');
     setNome('');
     listar();
@@ -61,6 +64,8 @@ export default function DashboardPage() {
 
   useEffect(() => {
     listar();
+    console.log("participantes");
+    console.log(participantes);
   }, []);
 
   return (
@@ -77,13 +82,18 @@ export default function DashboardPage() {
             </button>
           </div>
 
-          {/* Input e botão */}
           <div className="flex flex-col md:flex-row gap-3 mb-6">
             <input
                 className="flex-1 bg-gray-100 border border-gray-300 px-3 py-2 rounded-xl"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
                 placeholder="Nome do participante"
+            />
+            <input
+                className="flex-1 bg-gray-100 border border-gray-300 px-3 py-2 rounded-xl"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email do participante"
             />
             <button
                 onClick={adicionar}
@@ -100,7 +110,14 @@ export default function DashboardPage() {
                     key={p.id}
                     className="flex items-center justify-between bg-gray-50 px-4 py-2 rounded-xl border border-gray-200"
                 >
-                  <span className="text-gray-800">{p.nome}</span>
+                  <div className="flex items-center gap-3">
+                    <img
+                        src={getAvatar(p.email)}
+                        alt={p.nome}
+                        className="w-8 h-8 rounded-full border"
+                    />
+                    <span className="text-gray-800">{p.nome}</span>
+                  </div>
                   <button
                       onClick={() => setConfirmDelete(p)}
                       className="text-red-400 hover:text-red-600 transition"
@@ -109,6 +126,7 @@ export default function DashboardPage() {
                     <Trash2 size={18} />
                   </button>
                 </div>
+
             ))}
           </div>
 
@@ -165,5 +183,4 @@ export default function DashboardPage() {
 
       </div>
   );
-
 }
