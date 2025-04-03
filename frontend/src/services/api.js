@@ -6,7 +6,7 @@ import axios from 'axios';
 // });
 
 const api = axios.create({
-  baseURL: "https://daily-backend.onrender.com", // exemplo
+  baseURL: 'https://daily-backend-ixg6.onrender.com'
 });
 
 
